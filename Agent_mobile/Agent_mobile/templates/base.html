@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+    <html lang="en"; style="background-color:DimGray;">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>Рабочий стол агента</title>
+            {% load static %}
+            <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+             <link rel="stylesheet" href="/static/css/me_css.css" type="text/css">
+        </head>
+
+        <body style = "background-color:DimGray;">
+            <div class="p-1 mb-2 bg-dark text-white">
+                <p>
+                    {% block content %}
+                    {% endblock %}
+                </p>
+             </div>
+
+            <div class="container-fluid">
+                <div class="container">
+                    <p><a href="/visits" type="button" class="btn btn-primary w-100">Посещения</a></p>
+                    <p><a href="/reports" type="button" class="btn btn-primary w-100 disabled">Отчеты</a></p>
+               </div>
+            </div>
+
+
+         </body>
+
+        <div class="footer">
+            <div class="p-1 mb-2 bg-dark text-white">
+<!--                <img src="{% static 'main_menu/image/agent.png' %}" class="img-thumbnail">-->
+
+                &copy; ООО "Кофейный Магнат", 2020
+
+            </div>
+        </div>
+    </html>

@@ -51,11 +51,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Agent_mobile.urls'
+PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [PROJECT_PATH + '/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,7 +122,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATIC_ROOT = PROJECT_PATH
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_PATH,'static'),
+       )
