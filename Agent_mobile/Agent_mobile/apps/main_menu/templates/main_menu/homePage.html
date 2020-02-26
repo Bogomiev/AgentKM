@@ -1,17 +1,15 @@
 {% extends "base.html" %}
 
-{% block content %}
-    <div class="p-1 mb-2 bg-dark text-white">
-        <p>
-            <p>
-                Рабочий стол агента: {{ agent }}
-            </p>
-        </p>
-    </div>
+{% block header %}
+Рабочий стол агента: {{ agent }}
+{% endblock %}
 
+{% block content %}
     <div class="container-fluid">
         <div class="container">
-            <p><a href="/visits" type="button" class="btn btn-primary w-100">Посещения</a></p>
+            <p>
+                <a href="/visits" type="button" class="btn btn-primary w-100 {% if not agent %} disabled {% endif %}">Посещения</a>
+            </p>
             <p><a href="/reports" type="button" class="btn btn-primary w-100 disabled">Отчеты</a></p>
         </div>
     </div>

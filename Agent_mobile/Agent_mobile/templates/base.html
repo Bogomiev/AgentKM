@@ -12,8 +12,52 @@
         </head>
 
         <body style = "background-color:DimGray;">
+
+            <div class="p-1 mb-2 bg-dark text-white">
+
+                <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end">
+                    <a class="navbar-brand" href="#">
+                        {% if agent %}
+                            {% block header %}
+                            {% endblock %}
+                        {% endif %}
+                    </a>
+                    {% if agent %}
+                    <a href="/logout/" class="btn btn-success ml-auto mr-1 btn-sm">Выйти ({{ agent }})</a>
+                    {% else %}
+
+                        <a class="form-inline">
+
+                            <form action="/login/" method="post" >
+                                {% csrf_token %}
+
+                                <input class= "btn btn-success ml-auto mr-1 btn-sm" type="submit" value="Войти">
+
+                                <div class="col-xs-1">
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="Введите логин">
+                                </div>
+                                <div class="col-xs-1">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Введите пароль">
+                                </div>
+
+                            </form>
+                        </a>
+
+                    {% endif %}
+
+                </nav>
+            </div>
+
             {% block content %}
             {% endblock %}
+
+{% for message in messages %}
+<div class="message {{ message.tags }}">
+{{ message }}
+</div>
+{% endfor %}
+
+
          </body>
 
         <div class="footer">
@@ -21,7 +65,6 @@
 <!--                <img src="{% static 'main_menu/image/agent.png' %}" class="img-thumbnail">-->
 
                 &copy; ООО "Кофейный Магнат", 2020
-
             </div>
         </div>
     </html>

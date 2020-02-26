@@ -1,21 +1,14 @@
 {% extends "base.html" %}
 
+{% block header %}
+Посещения агента: {{ agent }}
+{% endblock %}
+
 {% block content %}
-    <div class="p-1 mb-2 bg-dark text-white">
-        <p>
-            <p>
-                Посещения агента: {{ agent }}
-            </p>
-        </p>
-    </div>
 
     <div class="col-sm-5 col-md-5 col-lg-5 text-left" >
             <a href="/visits" type="button" class="btn btn-primary" title="Добавить новое посещение">+</a>
     </div>
-
-
-
-
 
 
 <!--<h1>{% include "main_menu/includes/header.html" %}</h1>-->
