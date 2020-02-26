@@ -12,21 +12,8 @@
         </head>
 
         <body style = "background-color:DimGray;">
-            <div class="p-1 mb-2 bg-dark text-white">
-                <p>
-                    {% block content %}
-                    {% endblock %}
-                </p>
-             </div>
-
-            <div class="container-fluid">
-                <div class="container">
-                    <p><a href="/visits" type="button" class="btn btn-primary w-100">Посещения</a></p>
-                    <p><a href="/reports" type="button" class="btn btn-primary w-100 disabled">Отчеты</a></p>
-               </div>
-            </div>
-
-
+            {% block content %}
+            {% endblock %}
          </body>
 
         <div class="footer">

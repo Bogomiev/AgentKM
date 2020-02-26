@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'Agent_mobile.apps.main_menu',
+    'Agent_mobile.apps.visits',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
