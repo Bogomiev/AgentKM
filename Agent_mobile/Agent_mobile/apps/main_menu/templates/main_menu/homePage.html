@@ -1,20 +1,22 @@
 {% extends "base.html" %}
 
 {% block header %}
-Рабочий стол агента: {{ agent }}
+    {% if agent.id != 0 %}
+        Рабочий стол агента: {{ agent.name }}
+    {% elif agent.user.id != None %}
+        Агент не определен!
+    {% endif %}
 {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
         <div class="container">
             <p>
-                <a href="/visits" type="button" class="btn btn-primary w-100 {% if not agent %} disabled {% endif %}">Посещения</a>
+                <a href="/visits" type="button" class="btn btn-primary w-100 {% if agent.id == 0 %} disabled {% endif %}">Посещения</a>
             </p>
             <p><a href="/reports" type="button" class="btn btn-primary w-100 disabled">Отчеты</a></p>
         </div>
     </div>
-
-<!--<h1>{% include "main_menu/includes/header.html" %}</h1>-->
 {% endblock %}
 
 

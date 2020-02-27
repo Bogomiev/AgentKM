@@ -2,15 +2,15 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import auth
 from django.contrib import messages
-
 from django.template.context_processors import csrf
+from .models import Agent
 
 
 def index(request):
-    context = {
-        'agent': auth.get_user(request).username
-    }
-    return render(request, 'main_menu/homePage.html', context)
+    agent = Agent.get_Agent(request)
+    # error_messages = [agent]
+    # messages.error(request, error_messages)
+    return render(request, 'main_menu/homePage.html', {'agent': agent})
 
 
 def login(request):
@@ -27,8 +27,6 @@ def login(request):
             return redirect('/')
         else:
             args['login_error'] = "Пользователь не найден"
-            error_messages = ['args: ' + args['login_error'], 'username: ' + username, 'password: ' + password]
-            messages.error(request, error_messages)
             return render(request, 'main_menu/homePage.html', args)
 
     else:

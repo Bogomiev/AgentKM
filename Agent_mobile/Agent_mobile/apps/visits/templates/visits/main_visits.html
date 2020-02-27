@@ -1,15 +1,37 @@
 {% extends "base.html" %}
 
 {% block header %}
-Посещения агента: {{ agent }}
+    {% if agent.id != 0 %}
+        Посещения агента: {{ agent.name }}
+    {% elif agent.user.id != None %}
+        Агент не определен!
+    {% endif %}
 {% endblock %}
 
 {% block content %}
-
     <div class="col-sm-5 col-md-5 col-lg-5 text-left" >
-            <a href="/visits" type="button" class="btn btn-primary" title="Добавить новое посещение">+</a>
+        <a href="/visit/add" type="button" class="btn btn-primary" title="Добавить новое посещение">+</a>
     </div>
 
+    <p>
+        <table class="table table-striped table-bordered table-hover">
+          <thead style="background-color:RoyalBlue;">
+            <tr>
+              <th>Дата</th>
+              <th>Торговая точка</th>
+              <th>Результат</th>
+            </tr>
+          </thead>
+        <tbody>
+        {% for visit in visits %}
+            <tr>
+                <td>{{ visit.visitDate | date:'d-m-y h:m:s'}}</td>
+                <td> {{ visit.shop }} </td>
+                <td>{% include "includes/visit_result.html" %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </p>
 
-<!--<h1>{% include "main_menu/includes/header.html" %}</h1>-->
 {% endblock %}
+
