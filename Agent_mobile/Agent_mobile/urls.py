@@ -20,5 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Agent_mobile.apps.main_menu.urls')),
     path('index/', include('Agent_mobile.apps.main_menu.urls')),
-    path('visits/', include('Agent_mobile.apps.visits.urls')),
+    path('visit/', include('Agent_mobile.apps.visits.urls')),
 ]

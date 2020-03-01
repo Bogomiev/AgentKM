@@ -1,9 +1,9 @@
-{% if result == created %}
+{% if visit.result == 'created' %}
 Создана
-{% elif result == visit %}
+{% elif visit.result == 'visit' %}
 Посетил
-{% elif result == invoice %}
+{% elif visit.result == 'invoice' %}
 Заявка
-{% elif result == canceled %}
+{% elif visit.result == 'canceled' %}
 Отменено
 {% endif %}

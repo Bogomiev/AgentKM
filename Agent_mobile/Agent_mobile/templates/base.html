@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <html lang="en-ru"; style="background-color:DimGray;">
+    <html lang="ru-RU"; style="background-color:DimGray;">
 
         <head>
             <meta charset="UTF-8">
@@ -7,16 +7,26 @@
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title>Рабочий стол агента</title>
             {% load static %}
-            <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
-             <link rel="stylesheet" href="/static/css/me_css.css" type="text/css">
+            <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
+            <link rel="stylesheet" href="{% static 'css/my_css.css' %}" type="text/css">
+            {% block extrahead %}
+            <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+
+            <script type="text/javascript" src="/admin/jsi18n/"></script>
+            <script type="text/javascript" src="/static/admin/js/calendar.js"></script>
+            <script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+            <script type="text/javascript" src="/static/admin/js/core.js"></script>
+            <link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+            {% endblock extrahead %}
+
         </head>
 
-        <body style = "background-color:DimGray;">
+        <body style = "background-color:DimGray; ">
 
-            <div class="p-1 mb-2 bg-dark text-white">
+            <div class="p-1 mb-2 bg-dark text-white maim_menu">
 
                 <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" >
                         {% block header %}
                         {% endblock %}
                     </a>
@@ -26,15 +36,10 @@
                 </nav>
             </div>
 
+            <container class="div_fix">
             {% block content %}
             {% endblock %}
-
-{% for message in messages %}
-<div class="message {{ message.tags }}">
-{{ message }}
-</div>
-{% endfor %}
-
+            </container>
 
          </body>
 

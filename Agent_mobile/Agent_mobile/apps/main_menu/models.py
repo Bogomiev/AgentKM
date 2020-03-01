@@ -15,7 +15,8 @@ class Agent(models.Model):
         user = auth.get_user(request)
         agent = {'user': user,
                  'id': 0,
-                 'name': ''}
+                 'name': '',
+                 'ref': None}
 
         if user.is_authenticated:
             try:
@@ -23,6 +24,7 @@ class Agent(models.Model):
                 agent['user'] = _agent.user
                 agent['id'] = _agent.id
                 agent['name'] = _agent.name
+                agent['ref'] = _agent
             except Agent.DoesNotExist:
                 pass
         return agent
@@ -31,7 +33,7 @@ class Agent(models.Model):
 class Client(models.Model):
     name = models.CharField(max_length=100, verbose_name='Наименование клиента', help_text='Наименование клиента')
     fullName = models.CharField(max_length=250, verbose_name='Полное наименование', help_text='Полное наименование')
-    inn = models.CharField(max_length=12, verbose_name='ИНН клиента', help_text='ИНН клиента')
+    inn = models.CharField(max_length=12, verbose_name='ИНН клиента', help_text='ИНН клиента', db_index=True)
     kpp = models.CharField(max_length=9, verbose_name='КПП клиента', help_text='КПП клиента')
     okpo = models.CharField(max_length=10, verbose_name='ОКПО клиента', help_text='ОКПО клиента')
     adress = models.CharField(max_length=250, verbose_name='Адрес клиента', help_text='Адрес клиента')

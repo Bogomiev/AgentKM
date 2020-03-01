@@ -1,0 +1,23 @@
+.footer {
+    border: solid 1px transparent;
+    position: fixed;
+    bottom: -10px;
+    width: 100%;
+    left: 0;
+    text-align: center;
+}
+
+.maim_menu {
+    position: fixed;
+    width: 100%;
+    padding: 100px;
+    z-index:100;
+}
+
+.div_fix {
+    position: fixed;
+    position: absolute;
+    top: 80px;
+    left: 5px;
+    width: 100%
+}

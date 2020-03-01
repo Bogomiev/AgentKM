@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% if agent.id != 0 %}
+        Посещения агента: {{ agent.name }}
+    {% elif agent.user.id != None %}
+        Агент не определен!
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<h3>Посещение</h3>
+<form method="POST" class="post-form">
+    {% csrf_token %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/visit.css' %}" type="text/css">
+    <div class="visit">
+    Дата посещения: {{ form.visitDate }}
+    </div>
+    <div class="visit">
+    Время: {{ form.visitTime }}
+    </div>
+    <div class="visit">
+    Тоговая точка: {{ form.shop }}
+    </div>
+    <div class="visit">
+    Результат посещения: {{ form.result }}
+    </div>
+    <div class="visit">
+    Примечание: {{ form.note }}
+    </div>
+
+<p>
+    <div class="visit">
+       <button href="#" type="submit" class="btn btn-primary {% if agent.id == 0 %} disabled {% endif %}" >Записать и закрыть</button>
+    </div>
+</p>
+
+
+</form>
+
+{% endblock %}
+
