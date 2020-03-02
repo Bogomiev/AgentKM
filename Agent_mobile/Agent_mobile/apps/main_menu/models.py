@@ -4,8 +4,8 @@ from django.contrib import auth
 
 
 class Agent(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь', help_text='Пользователь')
-    name = models.CharField(max_length=100, verbose_name='Имя агента', help_text='Имя агента')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    name = models.CharField(max_length=100, verbose_name='Имя агента')
 
     def __str__(self):
         return self.name
@@ -31,13 +31,13 @@ class Agent(models.Model):
 
 
 class Client(models.Model):
-    name = models.CharField(max_length=100, verbose_name='Наименование клиента', help_text='Наименование клиента')
-    fullName = models.CharField(max_length=250, verbose_name='Полное наименование', help_text='Полное наименование')
-    inn = models.CharField(max_length=12, verbose_name='ИНН клиента', help_text='ИНН клиента', db_index=True)
-    kpp = models.CharField(max_length=9, verbose_name='КПП клиента', help_text='КПП клиента')
-    okpo = models.CharField(max_length=10, verbose_name='ОКПО клиента', help_text='ОКПО клиента')
-    adress = models.CharField(max_length=250, verbose_name='Адрес клиента', help_text='Адрес клиента')
-    phon = models.CharField(max_length=100, verbose_name='Телефон клиента', help_text='Телефон клиента')
+    name = models.CharField(max_length=100, verbose_name='Наименование клиента', db_index=True)
+    fullName = models.CharField(max_length=250, verbose_name='Полное наименование')
+    inn = models.CharField(max_length=12, verbose_name='ИНН клиента', db_index=True)
+    kpp = models.CharField(max_length=9, verbose_name='КПП клиента')
+    okpo = models.CharField(max_length=10, verbose_name='ОКПО клиента')
+    adress = models.CharField(max_length=250, verbose_name='Адрес клиента')
+    phon = models.CharField(max_length=100, verbose_name='Телефон клиента')
     marked = models.BooleanField(verbose_name='Пометка удаления', help_text='Пометка удаления')
 
     def __str__(self):
@@ -45,11 +45,19 @@ class Client(models.Model):
 
 
 class Shop(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='Клиент', help_text='Клиент')
-    name = models.CharField(max_length=200, verbose_name='Адрес торговой точки', help_text='Адрес торговой точки')
-    kpp = models.CharField(max_length=9, verbose_name='КПП точки', help_text='КПП точки')
-    phon = models.CharField(max_length=100, verbose_name='Телефон торговой точки', help_text='Телефон торговой точки')
-    marked = models.BooleanField(verbose_name='Пометка удаления', help_text='Пометка удаления')
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='Клиент', db_index=True)
+    name = models.CharField(max_length=200, verbose_name='Адрес торговой точки')
+    kpp = models.CharField(max_length=9, verbose_name='КПП точки')
+    phon = models.CharField(max_length=100, verbose_name='Телефон торговой точки')
+    marked = models.BooleanField(verbose_name='Пометка удаления')
 
     def __str__(self):
-        return self.name
+        return f'{self.client.__str__()}: {self.name}'
+
+
+class AgentShop(models.Model):
+    agent = models.ForeignKey(Agent, on_delete=models.CASCADE, verbose_name='Агент', db_index=True)
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE, verbose_name='Торговая точка', db_index=True)
+
+    def __str__(self):
+        return f'{self.agent.__str__()} - {self.shop.name}'

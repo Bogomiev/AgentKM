@@ -30,7 +30,6 @@ class Visit(models.Model):
 
     @property
     def visitTime(self):
-        """I'm the 'x' property."""
         return self._visitTime
 
     @visitTime.setter

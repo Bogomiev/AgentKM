@@ -3,7 +3,6 @@ from django.contrib.admin.widgets import AdminSplitDateTime
 from django.contrib.admin.widgets import AdminTimeWidget
 from django.contrib.admin.widgets import AdminDateWidget
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext
 from .models import Visit
 from .models import Shop
 from django.forms import widgets
@@ -19,7 +18,14 @@ class EventSplitDateTime(forms.SplitDateTimeWidget):
         return mark_safe(u'%s%s' % (rendered_widgets[0], rendered_widgets[1]))
 
 
+CHOICE_ALPH = [('...', '...'), ('а', 'А'), ('б', 'Б'), ('в', 'В'), ('г', 'Г'), ('д', 'Д'), ('е', 'Е'), ('ё', 'Ё'),
+               ('ж', 'Ж'), ('з', 'З'), ('и', 'И'), ('й', 'Й'), ('к', 'К'), ('л', 'Л'), ('м', 'М'), ('н', 'Н'),
+               ('о', 'О'), ('п', 'П'), ('р', 'Р'), ('с', 'С'), ('т', 'Т'), ('у', 'У'), ('ф', 'Ф'), ('х', 'Х'),
+               ('ц', 'Ц'), ('ч', 'Ч'), ('ш', 'Ш'), ('щ', 'Щ'), ('ы', 'Ы'), ('э', 'Э'), ('ю', 'Ю'), ('я', 'Я')]
+
+
 class VisitForm(forms.ModelForm):
+    filter_shop = forms.ChoiceField(widget=widgets.Select(), required=False, choices=CHOICE_ALPH)
     visitTime = forms.CharField(max_length=8, widget=AdminTimeWidget())
 
     def __init__(self, *args, **kwargs):
@@ -30,7 +36,7 @@ class VisitForm(forms.ModelForm):
 
     class Meta:
         model = Visit
-        fields = ('visitDate', 'shop', 'result', 'note', 'visitTime')
+        fields = ('visitDate', 'shop', 'result', 'note', 'visitTime', 'filter_shop')
         help_texts = {
             'visitDate': '',
             'shop': '',
