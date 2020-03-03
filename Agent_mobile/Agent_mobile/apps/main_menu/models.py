@@ -10,6 +10,26 @@ class Agent(models.Model):
     def __str__(self):
         return self.name
 
+    def available_shops(self):
+        available_shops = AgentShop.objects.filter(agent=self).values_list('shop_id')
+        return Shop.objects.filter(id__in=available_shops).order_by('name')
+
+    def available_shops_with_filter(self, filter='...'):
+        available_shops_id = AgentShop.objects.filter(agent=self).values_list('shop_id')
+
+        if filter != '...':
+            clients = Client.objects.filter(name__istartswith=filter)
+            shops = Shop.objects.filter(client__in=clients, id__in=available_shops_id).order_by('name')
+        else:
+            shops = Shop.objects.filter(id__in=available_shops_id).order_by('name')
+
+        shop_list = [{'value': 0, 'name': '---------'}]
+
+        for shop in shops:
+            shop_list.append({'value': shop.id, 'name': shop.__str__()})
+
+        return shop_list
+
     @staticmethod
     def get_Agent(request):
         user = auth.get_user(request)

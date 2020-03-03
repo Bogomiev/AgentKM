@@ -1,11 +1,9 @@
 from django import forms
-from django.contrib.admin.widgets import AdminSplitDateTime
 from django.contrib.admin.widgets import AdminTimeWidget
-from django.contrib.admin.widgets import AdminDateWidget
 from django.utils.safestring import mark_safe
 from .models import Visit
-from .models import Shop
 from django.forms import widgets
+from ..main_menu.models import Agent
 
 
 class EventSplitDateTime(forms.SplitDateTimeWidget):
@@ -30,6 +28,9 @@ class VisitForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(VisitForm, self).__init__(*args, **kwargs)
+        if kwargs.__contains__('initial'):
+            agent = Agent.objects.get(id=kwargs['initial']['agent_id'])
+            self.fields['shop'].queryset = agent.available_shops()
 
     def save(self, *args, **kwargs):
         return super(VisitForm, self).save(*args, **kwargs)
@@ -47,5 +48,5 @@ class VisitForm(forms.ModelForm):
         widgets = {
             'note': forms.Textarea(attrs={'class': 'form-control', 'cols': 10, 'rows': 4}),
             'visitDate': widgets.SelectDateWidget(),
-            'shop': widgets.Select(attrs={'choice': Shop.objects.all()})
+            'shop': widgets.Select(attrs={'choice': Agent.objects.none()})
         }

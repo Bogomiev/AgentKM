@@ -1,12 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .models import Agent
-from ..main_menu.models import Client
 from .models import Visit
 from django import template
 from .forms import VisitForm
-from ..main_menu.models import AgentShop
-from ..main_menu.models import Shop
 from ...utilities import split_date_time
 from django.http import JsonResponse, HttpResponse
 
@@ -59,22 +56,7 @@ def visit_new(request):
 
 def agent_shops(request):
     agent = Agent.get_Agent(request)['ref']
-    available_shops_id = AgentShop.objects.filter(agent=agent).values_list('shop_id')
-    clients = Client.objects.all()
-    client_list = []
-    letter = request.GET['filter']
-
-    if letter != '...':
-        for client in clients:
-            if client.name[0].lower() == letter:
-                client_list.append(client)
-    else:
-        client_list = clients
-
-    shops = Shop.objects.filter(client__in=client_list, id__in=available_shops_id).order_by('name')
-    shop_list = [{'value': 0, 'name': '---------'}]
-
-    for shop in shops:
-        shop_list.append({'value': shop.id, 'name': shop.__str__()})
+    filter = request.GET['filter']
+    shop_list = agent.available_shops_with_filter(filter)
 
     return JsonResponse({'shops': shop_list})
