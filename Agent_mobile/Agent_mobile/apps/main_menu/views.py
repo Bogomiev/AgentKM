@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib import auth
 from django.contrib import messages
 from django.template.context_processors import csrf
-from .models import Agent
+from ..core.models import Agent
 
 
 def index(request):

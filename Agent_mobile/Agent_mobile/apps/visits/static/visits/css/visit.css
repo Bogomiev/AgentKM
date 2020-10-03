@@ -1,4 +1,28 @@
 .visit {
-    text-indent:5px;
-    margin: 5px;
+    text-indent:0px;
+    margin: 0px;
+}
+
+.invoice-link{
+    color: Lime;
+    text-decoration: none;
+    margin:20px;
+    font-size:12px
+}
+
+.invoice-link:hover{
+    color: YellowGreen;
+    text-decoration: underline;
+}
+
+.invoice-link-disabled{
+    color: White;
+    text-decoration: none;
+    margin:20px;
+    font-size:12px
+}
+
+.invoice-link-disabled:hover{
+    color: YellowGreen;
+    text-decoration: underline;
 }

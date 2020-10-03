@@ -1,0 +1,18 @@
+
+{% if invoice.status == 0 %}
+    -новая
+{% elif invoice.status == 1 %}
+    -создана
+{% elif invoice.status == 2 %}
+    -отправлена
+{% elif invoice.status == 3 %}
+    -отменена
+{% elif status == 0 %}
+    (новая)
+{% elif status == 1 %}
+    (создана)
+{% elif status == 2 %}
+    (отправлена)
+{% elif status == 3 %}
+    (отменена)
+{% endif %}

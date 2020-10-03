@@ -1,0 +1,104 @@
+
+
+{% block header %}
+    Заявка
+    {% include 'includes/invoice_status.html' %}
+{% endblock %}
+
+{% block content %}
+
+<form method="POST" class="post-form" id="form_items">
+    {% csrf_token %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'invoices/css/invoice.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'invoices/css/style.min.css' %}" type="text/css">
+
+
+<!--{% load mptt_tags %}-->
+<!--<ul>-->
+<!--    {% recursetree product_trees %}-->
+<!--        <li>-->
+<!--            {{ node.name }}-->
+<!--            {% if not node.is_leaf_node %}-->
+<!--                <ul class="children">-->
+<!--                    {{ children }}-->
+<!--                </ul>-->
+<!--            {% endif %}-->
+<!--        </li>-->
+<!--    {% endrecursetree %}-->
+<!--</ul>-->
+
+
+<!--    {% load mptt_tags %}-->
+<!--    <h3>Categories</h3>-->
+<!--    {% load mptt_tags %}-->
+<!--    <ul>-->
+<!--        {% recursetree product_trees %}-->
+<!--            <li>-->
+<!--                <a href="/invoice/4/invoice/{{ node.id }}/">-->
+<!--                {{ node.name }}-->
+<!--                {{ node.id }}-->
+<!--                {{ node.level }}-->
+<!--                </a>-->
+<!--                {% if node.is_root_node %}-->
+<!--                    {% ifequal node.id root_category_id %}-->
+<!--                        {% if not node.is_leaf_node %}-->
+<!--                            <ul class="children">-->
+<!--                                {{ children }}-->
+<!--                            </ul>-->
+<!--                        {% endif %}-->
+<!--                    {% endifequal %}-->
+<!--                {% else %}-->
+<!--                    {% if not node.is_leaf_node %}-->
+<!--                        {% if current_category.id == node.id %}-->
+<!--                            <ul class="children">-->
+<!--                                {{ children }}-->
+<!--                            </ul>-->
+<!--                        {% elif node.level < current_category.level %}-->
+<!--                            <ul class="children">-->
+<!--                                {{ children }}-->
+<!--                            </ul>-->
+<!--                        {% endif %}-->
+<!--                    {% endif %}-->
+<!--                {% endif %}-->
+<!--            </li>-->
+<!--        {% endrecursetree %}-->
+<!--    </ul>-->
+
+    <script src="{% static 'invoices/js/jstree.min.js' %}"></script>
+    <script>
+        $(function () {
+            $('#jstree')
+                .bind("before.jstree", function (e, data) {
+                // байндинг на событие перед загрузкой дерева
+                })
+                .jstree({
+                    "plugins" : [
+			            "themes","sort","json_data"
+		            ],
+                    'core' : {
+                        'data' : {
+                            "url" : "../../../items",
+                            "dataType" : "json",
+                            'data': function (node) {
+                                return { 'id': node.id };
+                            }
+                        }
+                    }
+                });
+        });
+    </script>
+    <div id="jstree"></div>
+
+    <p>
+        <div class="invoice">
+            <button href="#" type="submit" class="btn btn-primary" >
+               Выбрать
+            </button>
+            <input value="Отмена" type="button" onclick="history.back();" class="btn btn-primary">
+        </div>
+    </p>
+
+</form>
+
+{% endblock %}

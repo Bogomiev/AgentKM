@@ -3,7 +3,7 @@ from django.contrib.admin.widgets import AdminTimeWidget
 from django.utils.safestring import mark_safe
 from .models import Visit
 from django.forms import widgets
-from ..main_menu.models import Agent
+from ..core.models import Agent
 
 
 class EventSplitDateTime(forms.SplitDateTimeWidget):
@@ -32,21 +32,25 @@ class VisitForm(forms.ModelForm):
             agent = Agent.objects.get(id=kwargs['initial']['agent_id'])
             self.fields['shop'].queryset = agent.available_shops()
 
+            if not kwargs['initial']['enabled']:
+                for field in self.fields:
+                    self.fields[field].widget.attrs['disabled'] = 'disabled'
+
     def save(self, *args, **kwargs):
         return super(VisitForm, self).save(*args, **kwargs)
 
     class Meta:
         model = Visit
-        fields = ('visitDate', 'shop', 'result', 'note', 'visitTime', 'filter_shop')
+        fields = ('id', 'visitDate', 'shop', 'note', 'visitTime', 'filter_shop')
         help_texts = {
+            'id': '',
             'visitDate': '',
             'shop': '',
-            'result': '',
             'note': '',
         }
 
         widgets = {
-            'note': forms.Textarea(attrs={'class': 'form-control', 'cols': 10, 'rows': 4}),
+            'note': forms.Textarea(attrs={'class': 'form-control', 'cols': 10, 'rows': 4, 'style': 'width:98%'}),
             'visitDate': widgets.SelectDateWidget(),
-            'shop': widgets.Select(attrs={'choice': Agent.objects.none()})
+            'shop': widgets.Select(attrs={'choice': Agent.objects.none(), 'style': 'width:98%'})
         }

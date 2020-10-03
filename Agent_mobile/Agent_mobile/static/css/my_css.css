@@ -7,7 +7,15 @@
     text-align: center;
 }
 
-.maim_menu {
+.agent {
+    border: solid 1px transparent;
+    position: fixed;
+    bottom: 30px;
+    width: 100%;
+
+}
+
+.main_menu {
     position: fixed;
     width: 100%;
     padding: 100px;
@@ -20,4 +28,62 @@
     top: 80px;
     left: 5px;
     width: 100%
+}
+
+.small_btn {
+    font-size:12px
+}
+
+.small_font {
+    font-size:12px
+}
+
+.navbar-brand_15 {
+    .navbar-brand;
+    font-size:15px
+}
+
+.size_14 {
+    .navbar-brand;
+    font-size:14px
+}
+
+.text-white {
+    color: White
+}
+
+.text-gray {
+    color: LightGray
+}
+
+.link-active{
+    color: Lime;
+    text-decoration: none;
+}
+
+.link-active:hover{
+    color: YellowGreen;
+    text-decoration: underline;
+}
+
+.link-passive{
+    color: White;
+    text-decoration: none;
+}
+
+.link-passive:hover{
+    color: YellowGreen;
+    text-decoration: underline;
+}
+
+.label-underline{
+    color: white;
+    text-decoration: underline;
+}
+
+.margin-right{
+    margin-right: 5px;
+}
+.table-hover .table-active:hover {
+  background-color: rgba(100, 100, 0, 0.075);
 }

@@ -1,13 +1,14 @@
 {% if user.id != None %}
-    <a href="/logout/" class="btn btn-success ml-auto mr-1 btn-sm">Выйти ({{ user }})</a>
+    <a href="/logout/" class="btn-success ml-auto mr-1 btn-sm small_btn">
+        Выйти ({{ user }})
+    </a>
 {% else %}
 
     <a class="form-inline">
-
         <form action="/login/" method="post" >
             {% csrf_token %}
 
-            <input class= "btn btn-success ml-auto mr-1 btn-sm" type="submit" value="Войти">
+            <input class= "btn-success ml-auto mr-1 btn-sm small_btn" type="submit" value="Войти">
 
             <div class="col-xs-1">
                 <input type="text" class="form-control" id="username" name="username" placeholder="Введите логин">

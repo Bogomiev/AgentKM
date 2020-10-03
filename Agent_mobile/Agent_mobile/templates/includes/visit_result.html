@@ -1,9 +1,17 @@
 {% if visit.result == 'created' %}
 Создана
 {% elif visit.result == 'visit' %}
-Посетил
+Посещено
 {% elif visit.result == 'invoice' %}
 Заявка
 {% elif visit.result == 'canceled' %}
+Отменено
+{% elif result == 'created' %}
+Создана
+{% elif result == 'visit' %}
+Посещено
+{% elif result == 'invoice' %}
+Заявка
+{% elif result == 'canceled' %}
 Отменено
 {% endif %}

@@ -16,7 +16,6 @@ $(document).ready(function() {
             success: function(data) {
 
                 shop_select = $('#id_shop');
-                console.log(shop_select)
                 shop_select.empty();
 
                 data.shops.forEach(function(entry) {
@@ -24,9 +23,6 @@ $(document).ready(function() {
                 });
 
                 shop_select.prop('selected', false);
-                console.log('ok');
-                console.log(data);
-
             }
         });
 

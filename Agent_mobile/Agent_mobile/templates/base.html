@@ -12,26 +12,41 @@
             {% block extrahead %}
             <script type="text/javascript" src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
 
-            <script type="text/javascript" src="/admin/jsi18n/"></script>
-            <script type="text/javascript" src="/static/admin/js/calendar.js"></script>
-            <script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
-            <script type="text/javascript" src="/static/admin/js/core.js"></script>
+<!--            <script type="text/javascript" src="/admin/jsi18n/"></script>-->
+<!--            <script type="text/javascript" src="/static/admin/js/calendar.js"></script>-->
+<!--            <script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>-->
+<!--            <script type="text/javascript" src="/static/admin/js/core.js"></script>-->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
             <link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+            <link rel="shortcut icon" href="{%  static 'images/favicon.ico' %}">
             {% endblock extrahead %}
 
         </head>
 
         <body style = "background-color:DimGray; ">
 
-            <div class="p-1 mb-2 bg-dark text-white maim_menu" id="div_main_menu">
+            <div class="p-1 mb-2 bg-dark text-white main_menu" id="div_main_menu">
 
                 <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end">
-                    <a class="navbar-brand" >
+                    <a class="navbar-brand navbar-brand_15" >
+
                         {% block header %}
                         {% endblock %}
+
+                        {% if agent.id != 0 %}
+                        <!--{{ agent.name }}-->
+                        {% elif agent.user.id != None %}
+                            Агент не определен!
+                        {% endif %}
+
                     </a>
 
-                    {% include "includes/login.html" %}
+                    <div>
+                        <a href="/"><img src="{% static 'images/home.png' %}">
+                            {% include "includes/login.html" %}
+                        </a>
+                    </div>
 
                 </nav>
             </div>
@@ -44,9 +59,7 @@
          </body>
 
         <div class="footer">
-            <div class="p-1 mb-2 bg-dark text-white">
-<!--                <img src="{% static 'main_menu/image/agent.png' %}" class="img-thumbnail">-->
-
+            <div class="p-1 mb-2 bg-dark text-white size_14">
                 &copy; ООО "Кофейный Магнат", 2020
             </div>
         </div>

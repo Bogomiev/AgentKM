@@ -1,21 +1,23 @@
 {% extends "base.html" %}
 
 {% block header %}
-    {% if agent.id != 0 %}
-        Рабочий стол агента: {{ agent.name }}
-    {% elif agent.user.id != None %}
-        Агент не определен!
-    {% endif %}
+Рабочий стол
 {% endblock %}
 
+{% load static %}
 {% block content %}
     <div class="container-fluid">
         <div class="container">
             <p>
                 <a href="/visit" type="button" class="btn btn-primary w-100 {% if agent.id == 0 %} disabled {% endif %}">Посещения</a>
             </p>
-            <p><a href="/report" type="button" class="btn btn-primary w-100 disabled">Отчеты</a></p>
+            <p>
+                <a href="/invoice" type="button" class="btn btn-primary w-100 {% if agent.id == 0 %} disabled {% endif %}">Заявки</a>
+            </p>
         </div>
+    </div>
+    <div class="agent">
+        <img src="{% static 'images/agent.png' %}">
     </div>
 {% endblock %}
 

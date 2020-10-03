@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block header %}
+    Заявка
+    {% include 'includes/invoice_status.html' %}
+{% endblock %}
+
+{% block content %}
+
+<form method="POST" class="post-form" id="form_invoice">
+    {% csrf_token %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'invoices/css/invoice.css' %}" type="text/css">
+
+    <div class="invoice">
+        Клиент:
+        <a class="invoice text-white small_font">
+            {{ visit.shop }}
+        </a>
+    </div>
+    <div class="invoice">
+        Дата: {{ form.date }}
+    </div>
+    <div class="invoice">
+        Тип цены: {{ form.price_type }}
+    </div>
+    <div class="invoice">
+        Промо: {{ form.promo }}
+    </div>
+    <div class="invoice" title="Формировать счет-фактуру">
+       Счет-фактура:  {{ form.to_accounting }}
+    </div>
+
+    <div class = "margin-right">
+        <a href="/invoice/item/new/{{invoice_id}}/{{visit.id}}" type="button" class="btn-primary" title="Добавить новую строку">
+            <img src="/static/images/add.png" class="img-fluid">
+        </a>
+
+        <table class="table table-striped table-bordered table-hover text-white small_font white-space: nowrap">
+          <thead style="background-color:RoyalBlue;">
+          <tr class="row" >
+                <th class="col-1">№</th>
+                <th class="col-11">Товар</th>
+                <th class="col-3">Упаковка</th>
+                <th class="col-2">Кол-во</th>
+                <th class="col-3">Цена</th>
+                <th class="col-4">Сумма</th>
+            </tr>
+          </thead>
+        <tbody>
+        {% for item in items %}
+            <tr class="row">
+                <td class="col-1"> {{ item.num }}</td>
+                <td class="col-11">
+                    <a class= " {% if status < 2 %} link-active {% else %} link-passive {% endif %} "
+                       href= ../{{item.id}}>
+                        {{ item.product }}
+                    </a>
+                </td>
+                <td class="col-3">-</td>
+                <td class="col-2"> {{ item.number }}</td>
+                <td class="col-3"> {{ item.price }}</td>
+                <td class="col-4"> {{ item.summ }}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+        </table>
+    </div>
+
+    <p>
+        <div class="invoice">
+            {% if enabled == True %}
+            <button href="#" type="submit" class="btn btn-primary" >
+               Записать и закрыть
+            </button>
+            {% else %}
+            <input value="Закрыть" typыe="button" onclick="history.back();" class="btn btn-dark">
+            {% endif %}
+        </div>
+    </p>
+
+</form>
+
+{% endblock %}
+

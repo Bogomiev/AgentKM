@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block header %}
+    Заявка
+    {% include 'includes/invoice_status.html' %}
+{% endblock %}
+
+{% block content %}
+
+<form method="POST" class="post-form" id="form_items">
+    {% csrf_token %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'invoices/css/invoice.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'invoices/css/style.min.css' %}" type="text/css">
+    <script src="{% static 'invoices/js/jstree.min.js' %}"></script>
+    <script src="{% static 'invoices/js/invoice.js' %}"></script>
+
+    <div class="products1" id="products1">
+    </div>
+
+    <script>
+    $(document).ready(function () {
+    $("body").on("click", ".remove-button", function () {
+          $(this).parent().remove();
+        });
+
+    $("body").on("click", ".create-tree", function () {
+          var tree ='<div class="products" ">\
+                        <button class="btn-outline-success" type="button">\
+                           Выбрать\
+                        </button>\
+                        <input value="Отмена" type="button" onclick="history.back();" class="btn-outline-dark">\
+                        <input type="text" value=""  id="products_tree_search" placeholder="Поиск" />\
+                        <div id="products_tree"></div>\
+                    </div>';
+
+        console.log(tree);
+        $("#products1").html(tree);
+        console.log("типа добавили");
+        $('#products_tree').jstree(true);
+        console.log("попытка запустить");
+
+        $("#products_tree").jstree("refresh"); //refresh with flag = 0
+
+    flag = 1;
+    $("#products_tree").jstree("refresh"); //refresh with flag = 1
+        });
+    });
+    </script>
+
+<!--$('products1').on('jstree', 'products_tree', function());-->
+
+    <a href="javascript: return false;" class="create-tree">добавить</a>
+
+    <div class="products {% if choice_product != True %} disabled {% endif %}" id="products">
+        <button class="btn-outline-success" type="button">
+           Выбрать
+        </button>
+        <input value="Отмена" type="button" onclick="history.back();" class="btn-outline-dark">
+        <input type="text" value=""  id="products_tree_search" placeholder="Поиск" />
+        <div id="products_tree"></div>
+    </div>
+
+    <div class="invoice">
+        Количество: {{ form.number }}
+    </div>
+    <div class="invoice">
+        Цена: {{ form.price }}
+    </div>
+    <div class="invoice">
+        Скикда: {{ form.discont }}
+    </div>
+    <div class="invoice">
+        Сумма: {{ form.summ }}
+    </div>
+
+    <p>
+        <div class="invoice">
+            <button href="#" type="submit" class="btn btn-primary" >
+               Выбрать
+            </button>
+            <input value="Отмена" type="button" onclick="history.back();" class="btn-dark">
+        </div>
+    </p>
+
+</form>
+
+{% endblock %}

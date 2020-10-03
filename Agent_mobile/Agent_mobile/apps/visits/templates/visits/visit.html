@@ -1,28 +1,23 @@
 {% extends "base.html" %}
 
 {% block header %}
-    {% if agent.id != 0 %}
-        Посещения агента: {{ agent.name }}
-    {% elif agent.user.id != None %}
-        Агент не определен!
-    {% endif %}
+Посещение
 {% endblock %}
 
 {% block content %}
 
-<h3>Посещение</h3>
 <form method="POST" class="post-form" id="form_visit">
     {% csrf_token %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/visit.css' %}" type="text/css">
 
-    {{ form.agent_id }}
-
-    <div class="visit" id="ddddd">
-        {{ form.filter_shop }}
-        Тоговая точка: {{ form.shop }}
+    <div class="label-underline">
+        {% include 'includes/visit_result.html' %}
     </div>
-
+    <div class="visit {% if enabled != True %} disabled {% endif %}" id="ddddd">
+        {{ form.filter_shop }}
+        Торговая точка: {{ form.shop }}
+    </div>
     <div class="visit">
         Дата посещения: {{ form.visitDate }}
     </div>
@@ -30,17 +25,21 @@
         Время: {{ form.visitTime }}
     </div>
     <div class="visit">
-        Результат посещения: {{ form.result }}
-    </div>
-    <div class="visit">
         Примечание: {{ form.note }}
     </div>
 
-<p>
-    <div class="visit">
-       <button href="#" type="submit" class="btn btn-primary {% if agent.id == 0 %} disabled {% endif %}" >Записать и закрыть</button>
-    </div>
-</p>
+    <p>
+        <div class="visit">
+            {% if enabled == True %}
+            <button href="#" type="submit" class="btn btn-primary" >
+               Записать и закрыть
+            </button>
+            {% else %}
+            <input value="Закрыть" type="button" onclick="history.back();" class="btn btn-primary">
+            </input>
+            {% endif %}
+        </div>
+    </p>
 
     <script src="{% static 'visits/js/visit.js' %}"></script>
 

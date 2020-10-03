@@ -1,0 +1,17 @@
+.invoice {
+    text-indent:5px;
+    margin: 5px;
+}
+
+.products {
+    height: 98%;
+    width: 98%;
+    background-color: lightGray;
+    border-radius: 5px;
+    top: 5px;
+    justify-content: left;
+    overflow: hidden;
+    position: fixed;
+    display: block;
+    z-index:100;
+}
