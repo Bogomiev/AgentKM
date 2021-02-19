@@ -1,7 +1,4 @@
 from django.contrib.auth.models import User
-from django.http import JsonResponse
-from rest_framework import status
-from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import routers, serializers, viewsets
 from annoying.functions import get_object_or_None
@@ -34,7 +31,7 @@ def save_agent(agent_json):
             raise Exception(f'невозможно привязать агента {agent} к пользователю {_user}: агент привязан к '
                             f' {agent.user}')
         elif agent is None and not(get_object_or_None(Agent, user_id=agent_json['user']) is None):
-            raise Exception(f'невозможно создать агента {agent_json["name"]} с пользователем {_user}: к пользоватедю '
+            raise Exception(f'невозможно создать агента {agent_json["name"]} с пользователем {_user}: к пользователю '
                             f'привязан агент {get_object_or_None(Agent, user_id=agent_json["user"])}')
         else:
             raise Exception(f'невалидные данные: {agent_json}')

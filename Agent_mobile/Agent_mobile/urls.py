@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include
-from .api.agent_views import AgentAPI
+from .api.agent_api import AgentAPI
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,6 +13,5 @@ urlpatterns = [
     path('visit/', include('Agent_mobile.apps.visits.urls')),
     path('invoice/', include('Agent_mobile.apps.invoices.urls')),
     path('items/', include('Agent_mobile.apps.core.urls')),
-    url(r'^api/agent$', AgentAPI.as_view()),
-    url(r'^api/agent/(?P<guid>.+)$', AgentAPI.as_view()),
+    path('api/', include('Agent_mobile.api.urls')),
 ]

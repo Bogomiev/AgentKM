@@ -1,8 +1,3 @@
-from django.contrib import auth
-from django.contrib.auth.models import User
-from django.http import JsonResponse
-from rest_framework import status
-from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import routers, serializers, viewsets
 from annoying.functions import get_object_or_None
