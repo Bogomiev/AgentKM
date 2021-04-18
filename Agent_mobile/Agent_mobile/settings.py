@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'djoser',
     'rest_framework_jwt',
-    'rest_framework_json_api'
+    'rest_framework_json_api',
+    'django_celery_beat',
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [
@@ -169,3 +171,10 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=2),
 }
+
+# Celery Configuration Options
+CELERY_TIMEZONE = "Asia/Vladivostok"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_BROKER_URL = get_env_value('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = 'django-db'

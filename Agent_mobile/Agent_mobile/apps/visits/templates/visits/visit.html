@@ -11,12 +11,14 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'visits/css/visit.css' %}" type="text/css">
 
-    <div class="label-underline">
+    <div class="visit-result label-underline">
         {% include 'includes/visit_result.html' %}
     </div>
     <div class="visit {% if enabled != True %} disabled {% endif %}" id="ddddd">
         {{ form.filter_shop }}
-        Торговая точка: {{ form.shop }}
+        <div>
+            Торговая точка: {{ form.shop }}
+        </div>
     </div>
     <div class="visit">
         Дата посещения: {{ form.visitDate }}

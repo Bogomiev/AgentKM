@@ -12,7 +12,6 @@
     position: fixed;
     bottom: 30px;
     width: 100%;
-
 }
 
 .main_menu {
@@ -22,11 +21,15 @@
     z-index:100;
 }
 
+.table-common {
+    margin: 4px;
+}
+
 .div_fix {
     position: fixed;
     position: absolute;
-    top: 80px;
-    left: 5px;
+    top: 75px;
+
     width: 100%
 }
 

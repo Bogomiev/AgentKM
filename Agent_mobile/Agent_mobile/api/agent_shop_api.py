@@ -1,39 +1,38 @@
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import routers, serializers, viewsets
+from rest_framework import serializers
 from annoying.functions import get_object_or_None
 from rest_framework.views import APIView
-
 from .utils import get_api, post_api
-from ..apps.core.models import Shop
+from ..apps.core.models import AgentShop
 
 
-class ShopSerializer(serializers.ModelSerializer):
+class AgentShopSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Shop
-        fields = ['id', 'guid', 'client', 'name', 'kpp', 'phon', 'marked']
+        model = AgentShop
+        fields = ['id', 'agent', 'shop']
 
 
-def save_shop(shop_json):
-    shop = get_object_or_None(Shop, guid=shop_json['guid'])
-    if shop is None:
-        shop_serializer = ShopSerializer(data=shop_json)
+def save_agent_shop(agent_shop_json):
+    agent_shop = get_object_or_None(AgentShop, guid=agent_shop_json['id'])
+    if agent_shop is None:
+        shop_serializer = AgentShopSerializer(data=agent_shop_json)
     else:
-        shop_serializer = ShopSerializer(shop, data=shop_json)
+        shop_serializer = AgentShopSerializer(agent_shop, data=agent_shop_json)
 
     if shop_serializer.is_valid():
         shop = shop_serializer.save()
     else:
-        raise Exception(f'невалидные данные: {shop_json}')
+        raise Exception(f'невалидные данные: {agent_shop_json}')
 
     return shop.id
 
 
-class ShopAPI(APIView):
+class AgentShopAPI(APIView):
     permission_classes = [IsAuthenticated]
-    serializer_class = ShopSerializer
+    serializer_class = AgentShopSerializer
 
     def get(self, request, **kwargs):
-        return get_api(request, Shop, ShopSerializer, 'guid', 'Магазин', **kwargs)
+        return get_api(request, AgentShop, AgentShopSerializer, 'id', 'Агент-Магазин', **kwargs)
 
     def post(self, request, **kwargs):
-        return post_api(request, save_shop, 'guid', 'shop', **kwargs)
+        return post_api(request, save_agent_shop, 'guid', 'shop', **kwargs)
