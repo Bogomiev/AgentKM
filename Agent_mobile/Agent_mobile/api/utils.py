@@ -17,9 +17,9 @@ def get_api(request, model, serializer, name_guid, name_str, **kwargs):
 
     try:
         data = serializer(obj, many=many).data
-        response = {'status': 0, 'mess': '', 'data': data}
+        response = {'resultCode': 0, 'messages': [], 'data': data}
     except Exception as exc:
-        response = {'status': 1, 'mess': f'{name_str} не определен: {exc}', 'data': {}}
+        response = {'resultCode': 1, 'messages': [f'{name_str} не определен: {exc}'], 'data': {}}
 
     return JsonResponse(response, safe=False)
 
@@ -34,10 +34,10 @@ def post_api(request, save_func, name_guid, name_api, **kwargs):
         else:
             response_data[data[name_guid]] = save_func(data)
 
-        response = {'status': 0, 'mess': '', 'data': response_data}
+        response = {'resultCode': 0, 'messages': [], 'data': response_data}
     except Exception as exc:
-        response = {'status': 1, 'mess': f'Ошибка api/{name_api}/post: {exc}', 'data': {}}
+        response = {'resultCode': 1, 'messages': [f'Ошибка api/{name_api}/post: {exc}'], 'data': {}}
 
-    response_status = status.HTTP_201_CREATED if response['status'] == 0 else status.HTTP_400_BAD_REQUEST
+    response_status = status.HTTP_201_CREATED if response['resultCode'] == 0 else status.HTTP_400_BAD_REQUEST
 
     return JsonResponse(response, status=response_status)

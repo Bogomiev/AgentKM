@@ -1,5 +1,4 @@
 import os
-
 from celery import Celery
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Agent_mobile.settings')
@@ -10,8 +9,8 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
-    'exchange_ut' : {
-        'task': 'Agent_mobile.apps.core.tasks.exchange_ut',
-        'schedule': 15.0
+    'exchange': {
+        'task': 'Agent_mobile.apps.core.tasks.exchange_trade',
+        'schedule': 30.0
     }
 }
