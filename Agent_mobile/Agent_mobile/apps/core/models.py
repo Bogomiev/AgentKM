@@ -5,7 +5,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 
 class Agent(models.Model):
-    guid = models.CharField(max_length=32, unique=True, verbose_name='Уникальный идентификатор', db_index=True)
+    id = models.CharField(primary_key=True, max_length=36, verbose_name='Уникальный идентификатор')
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     name = models.CharField(max_length=100, verbose_name='Имя агента')
 
@@ -36,7 +36,7 @@ class Agent(models.Model):
     def get_Agent(request):
         user = auth.get_user(request)
         agent = {'user': user,
-                 'id': 0,
+                 'id': '00000000-0000-0000-0000-000000000000',
                  'name': '',
                  'ref': None}
 
@@ -53,14 +53,14 @@ class Agent(models.Model):
 
 
 class Client(models.Model):
-    guid = models.CharField(max_length=32, unique=True, verbose_name='Уникальный идентификатор', db_index=True)
+    id = models.CharField(primary_key=True, max_length=36, verbose_name='Уникальный идентификатор')
     name = models.CharField(max_length=100, verbose_name='Наименование клиента', db_index=True)
     full_name = models.CharField(max_length=250, verbose_name='Полное наименование')
     inn = models.CharField(max_length=12, verbose_name='ИНН клиента', db_index=True)
     kpp = models.CharField(max_length=9, verbose_name='КПП клиента', blank=True, null=True)
     okpo = models.CharField(max_length=10, verbose_name='ОКПО клиента', blank=True, null=True)
-    adress = models.CharField(max_length=250, verbose_name='Адрес клиента')
-    phon = models.CharField(max_length=100, verbose_name='Телефон клиента', blank=True, null=True)
+    address = models.CharField(max_length=350, verbose_name='Адрес клиента', blank=True, null=True)
+    phone = models.CharField(max_length=150, verbose_name='Телефон клиента', blank=True, null=True)
     marked = models.BooleanField(verbose_name='Пометка удаления')
 
     def __str__(self):
@@ -68,11 +68,11 @@ class Client(models.Model):
 
 
 class Shop(models.Model):
-    guid = models.CharField(max_length=32, unique=True, verbose_name='Уникальный идентификатор', db_index=True)
+    id = models.CharField(primary_key=True, max_length=36, verbose_name='Уникальный идентификатор')
     client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='Клиент', db_index=True)
-    name = models.CharField(max_length=200, verbose_name='Адрес торговой точки')
+    name = models.CharField(max_length=350, verbose_name='Адрес торговой точки')
     kpp = models.CharField(max_length=9, verbose_name='КПП точки', blank=True, null=True)
-    phon = models.CharField(max_length=100, verbose_name='Телефон торговой точки', blank=True, null=True)
+    phone = models.CharField(max_length=100, verbose_name='Телефон торговой точки', blank=True, null=True)
     marked = models.BooleanField(verbose_name='Пометка удаления')
 
     def __str__(self):
@@ -88,7 +88,7 @@ class AgentShop(models.Model):
 
 
 class ProductTree(models.Model):
-    guid = models.CharField(max_length=32, unique=True, verbose_name='Уникальный идентификатор', db_index=True)
+    id = models.CharField(primary_key=True, max_length=36, verbose_name='Уникальный идентификатор')
     code = models.CharField(max_length=11, unique=True, verbose_name='Код товара', db_index=True)
     name = models.CharField(max_length=100, verbose_name='Наименование группы')
     # parent_id = models.IntegerField(verbose_name='id родителя', db_index=True)
@@ -108,7 +108,7 @@ class ProductTree(models.Model):
 
 
 class Product(models.Model):
-    guid = models.CharField(max_length=32, unique=True, verbose_name='Уникальный идентификатор', db_index=True)
+    id = models.CharField(primary_key=True, max_length=36, verbose_name='Уникальный идентификатор')
     code = models.CharField(max_length=11, unique=True, verbose_name='Код товара', db_index=True)
     articul = models.CharField(max_length=11, verbose_name='Артикул')
     name = models.CharField(max_length=100, verbose_name='Наименование товара')

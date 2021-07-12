@@ -9,10 +9,12 @@
     <div class="container-fluid">
         <div class="container">
             <p>
-                <a href="/visit" type="button" class="btn btn-primary w-100 {% if agent.id == 0 %} disabled {% endif %}">Посещения</a>
+                <a href="/visit" type="button"
+                   class="btn btn-primary w-100 {% if agent.id == '00000000-0000-0000-0000-000000000000' %} disabled {% endif %}">Посещения</a>
             </p>
             <p>
-                <a href="/invoice" type="button" class="btn btn-primary w-100 {% if agent.id == 0 %} disabled {% endif %}">Заявки</a>
+                <a href="/invoice" type="button"
+                   class="btn btn-primary w-100 {% if agent.id == '00000000-0000-0000-0000-000000000000' %} disabled {% endif %}">Заявки</a>
             </p>
         </div>
     </div>

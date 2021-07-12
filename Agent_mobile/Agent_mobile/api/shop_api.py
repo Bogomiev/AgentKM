@@ -1,25 +1,23 @@
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import routers, serializers, viewsets
-from annoying.functions import get_object_or_None
+from rest_framework import serializers
 from rest_framework.views import APIView
-
 from .utils import get_api, post_api
 from ..apps.core.models import Shop
+from annoying.functions import get_object_or_None
 
 
 class ShopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shop
-        fields = ['id', 'guid', 'client', 'name', 'kpp', 'phon', 'marked']
+        fields = ['id',  'client',  'name', 'kpp', 'phone', 'marked']
 
 
 def save_shop(shop_json):
-    shop = get_object_or_None(Shop, guid=shop_json['guid'])
+    shop = get_object_or_None(Shop, id=shop_json['id'])
     if shop is None:
         shop_serializer = ShopSerializer(data=shop_json)
     else:
         shop_serializer = ShopSerializer(shop, data=shop_json)
-
     if shop_serializer.is_valid():
         shop = shop_serializer.save()
     else:
@@ -33,7 +31,7 @@ class ShopAPI(APIView):
     serializer_class = ShopSerializer
 
     def get(self, request, **kwargs):
-        return get_api(request, Shop, ShopSerializer, 'guid', 'Магазин', **kwargs)
+        return get_api(request, Shop, ShopSerializer, 'id', 'Магазин', **kwargs)
 
     def post(self, request, **kwargs):
-        return post_api(request, save_shop, 'guid', 'shop', **kwargs)
+        return post_api(request, save_shop, 'id', 'shop', **kwargs)

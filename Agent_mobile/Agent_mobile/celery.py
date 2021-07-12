@@ -11,6 +11,6 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'exchange': {
         'task': 'Agent_mobile.apps.core.tasks.exchange_trade',
-        'schedule': 30.0
+        'schedule': 300
     }
 }

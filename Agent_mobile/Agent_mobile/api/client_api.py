@@ -1,8 +1,7 @@
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import routers, serializers, viewsets
+from rest_framework import serializers
 from annoying.functions import get_object_or_None
 from rest_framework.views import APIView
-
 from .utils import get_api, post_api
 from ..apps.core.models import Client
 
@@ -10,11 +9,11 @@ from ..apps.core.models import Client
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
-        fields = ['id', 'guid', 'name', 'full_name', 'inn', 'kpp', 'okpo', 'adress', 'phon', 'marked']
+        fields = ['id', 'name', 'full_name', 'inn', 'kpp', 'okpo', 'address', 'phone', 'marked']
 
 
 def save_client(client_json):
-    client = get_object_or_None(Client, guid=client_json['guid'])
+    client = get_object_or_None(Client, id=client_json['id'])
     if client is None:
         client_serializer = ClientSerializer(data=client_json)
     else:
@@ -33,7 +32,7 @@ class ClientAPI(APIView):
     serializer_class = ClientSerializer
 
     def get(self, request, **kwargs):
-        return get_api(request, Client, ClientSerializer, 'guid', 'Клиент', **kwargs)
+        return get_api(request, Client, ClientSerializer, 'id', 'Клиент', **kwargs)
 
     def post(self, request, **kwargs):
-        return post_api(request, save_client, 'guid', 'client', **kwargs)
+        return post_api(request, save_client, 'id', 'client', **kwargs)

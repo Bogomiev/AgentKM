@@ -39,7 +39,7 @@
                         {% block header %}
                         {% endblock %}
 
-                        {% if agent.id != 0 %}
+                        {% if agent.id != "00000000-0000-0000-0000-000000000000" %}
                         <!--{{ agent.name }}-->
                         {% elif agent.user.id != None %}
                             Агент не определен!
@@ -65,7 +65,7 @@
 
         <div class="footer">
             <div class="p-1 mb-2 bg-dark text-white size_14">
-                &copy; ООО "Кофейный Магнат", 2020
+                &copy; ООО "Кофейный Магнат", 2021
             </div>
         </div>
     </html>
