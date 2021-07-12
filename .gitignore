@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 .idea/
 .env
+_auto_
+_initial.py
